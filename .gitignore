@@ -1,0 +1,4 @@
+# Ignoring vscode related files and directories.
+**/.vscode
+**/output
+**/test
