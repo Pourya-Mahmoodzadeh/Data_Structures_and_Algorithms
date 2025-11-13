@@ -151,7 +151,7 @@ DSA_STATUS dsa_bubble_sort (
 
         if (!key && use_heap)
             return DSA_ERR_ALLOC;
-        #endif
+    #endif
 
     for (size_t i = count - 1; i > 0; i--)
     {

@@ -8,7 +8,7 @@
  * In non-easy mode, it's assumed that whatever input is provided, is valid for the purpose.
  */
 #ifndef DSA_EASY_MODE
-    #define DSA_EASY_MODE 1
+    #define DSA_EASY_MODE 0
 #endif
 
 #define DSA_STATUS int 
