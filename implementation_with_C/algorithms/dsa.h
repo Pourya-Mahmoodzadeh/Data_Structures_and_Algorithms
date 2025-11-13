@@ -3,6 +3,33 @@
 
 #include <stddef.h>
 
+/**
+ *  extra checks, my be convinent to devs.
+ * In non-easy mode, it's assumed that whatever input is provided, is valid for the purpose.
+ */
+#ifndef DSA_EASY_MODE
+    #define DSA_EASY_MODE 1
+#endif
+
+#define DSA_STATUS int 
+
+/**
+ * an error code is returned with every single output. If you expect the ouput of a function be of type foo, then 
+ * an struct is returned with the type dsa_foo which contains: 
+ * 1. item of type foo
+ * 2. error code of type dsa_error_code
+ * NOTE: for now, it is not implementec!
+ */
+// #ifndef DSA_STRICT_MODE
+//     #define DSA_STRICT_MODE 0
+// #endif
+
+// #if DSA_STRICT_MODE
+//     #undef DSA_SAFE_MODE
+//     #define DSA_SAFE_MODE 1
+// #endif
+
+
 
 #define DSA_STACK_ALLOC_THRESHOLD 1024
 #define DSA_STACK_BUFFER_SIZE DSA_STACK_ALLOC_THRESHOLD
@@ -40,12 +67,18 @@ typedef void (*dsa_sum) (const void*, const void*, void *);
  * @param: size The size of each element in bytes.
  * @param: count The number of elements of the array.
  * @param: compare_func A typical compare function.
+ * @param: void* key (non-easymode), free space with equal size to "size" argument to be used by the function. In easy mode, the function itself handels this.
 */
-int dsa_insertion_sort (
+DSA_STATUS dsa_insertion_sort (
     void* base,
     const size_t count,
     const size_t size,
     dsa_compare cmp_func
+    #if DSA_EASY_MODE
+    #else
+        ,
+        void* key
+    #endif
 );
 
 /**
@@ -59,7 +92,7 @@ int dsa_insertion_sort (
  * @param sum_func a dsa_algo_sum
  * @return 0 if everything went fine, 1 if a problem occured
  */
-int dsa_sum_array (
+DSA_STATUS dsa_sum_array (
     void* const base,
     const size_t size,
     const size_t start,
@@ -75,12 +108,18 @@ int dsa_sum_array (
  * @param: size The size of each element in bytes.
  * @param: count The number of elements of the array.
  * @param: compare_func A typical compare function.
+ * @param: void* key (non-easymode), free space with equal size to "size" argument to be used by the function. In easy mode, the function itself handels this.
 */
-int dsa_bubble_sort (
+DSA_STATUS dsa_bubble_sort (
     void* base,
     const size_t count,
     const size_t size,
     dsa_compare cmp_func
+    #if DSA_EASY_MODE
+    #else
+        ,
+        void* key 
+    #endif
 );
 
 
